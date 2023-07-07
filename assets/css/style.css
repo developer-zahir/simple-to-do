@@ -116,3 +116,9 @@ body {
 }
 
 /* click to remove buttond */
+
+@media (max-width: 800px) {
+  body {
+    height: auto;
+  }
+}
