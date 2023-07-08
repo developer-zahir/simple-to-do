@@ -2,6 +2,7 @@ const add_button = document.querySelector("button");
 const input = document.querySelector(".box-body input");
 const data_container = document.querySelector(".data-inner");
 const clear_data_button = document.querySelector(".clear_add_data");
+const reload_button = document.querySelector(".reload");
 
 // store data
 let foods = ["Prochur practice korte hobe ( Default value )"];
@@ -48,7 +49,7 @@ const clearData = () => {
   food_processing();
 };
 
-// Remove data item
+// remove data whec click the remove button
 const removeData = (event) => {
   const index = event.target.dataset.index;
   foods.splice(index, 1);
@@ -65,6 +66,10 @@ add_button.onclick = () => {
   food_processing();
   saveDataToLocalStorage();
   input.value = "";
+};
+// when click the reload button then reload the browser
+reload_button.onclick = () => {
+  location.href = location.href;
 };
 
 loadDataFromLocalStorage();
