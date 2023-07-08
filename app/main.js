@@ -6,7 +6,7 @@ const reload_button = document.querySelector(".reload");
 const error_message = document.querySelector(".error_message");
 
 // store data
-let foods = ["Prochur practice korte hobe (DefValue)", 'Regular class korte hobe (DefValue)'];
+let foods = ["Regular class korte hobe (DefValue)", "Prochur practice korte hobe (DefValue)", " Protita class er note korete hobe (DefValue)", "Ekjon valo maner, developer hote hobe (DefValue)"];
 
 // food processing from array
 const food_processing = () => {
