@@ -6,7 +6,7 @@ const reload_button = document.querySelector(".reload");
 const error_message = document.querySelector(".error_message");
 
 // store data
-let foods = [];
+let foods = ["Regular class korte hobe. ", "Prochur practice korte hobe. ", " Protita class er note korete hobe", "Ekjon valo maner, developer hote hobe. ", "Ekjon valo mner manush hote hobe"];
 
 // food processing from array
 const food_processing = () => {
@@ -16,7 +16,7 @@ const food_processing = () => {
     <li>
         <span class="sl_number">${index + 1 <= 9 ? `0${index + 1}` : index + 1}</span>
         <span class="food_name"> ${food}</span>
-        <span class="remove_data"><img class="delete_icon" src="./assets/img/delete_btn.svg"</span>
+        <span class="remove_data"><img class="delete_icon" src="./assets/img/delete_btn.svg"></span>
    </li>
     `;
   });
