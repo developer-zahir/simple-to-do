@@ -59,20 +59,44 @@ body {
 .box .box-body button:hover {
   opacity: 0.9;
 }
-.box .error_message{
+.box .error_message {
   display: block;
   font-size: 13px;
   color: red;
   padding: 5px 25px 25px 25px;
 }
 
-
 /* data listing */
 .data-container {
   padding: 20px;
   padding-top: 0;
+  max-height: 316px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+/* width */
+.data-container::-webkit-scrollbar {
+  width: 7px;
+  border-radius: 3px;
 }
 
+/* Track */
+.data-container::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 3px;
+}
+
+/* Handle */
+.data-container::-webkit-scrollbar-thumb {
+  background: #33333342;
+}
+
+/* Handle on hover */
+.data-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 .data-container li {
   padding: 10px 0;
   border-bottom: 1px solid #dddddd52;
@@ -109,7 +133,7 @@ body {
 }
 
 /* box footer  ( clear all data ) */
-.box .box-footer{
+.box .box-footer {
   display: flex;
   gap: 15px;
 }
@@ -123,9 +147,9 @@ body {
   transition: 0.4s;
   width: 80%;
 }
-.box .box-footer button:last-child{
- width: 20%;
- background: #445760;
+.box .box-footer button:last-child {
+  width: 20%;
+  background: #445760;
 }
 .box .box-footer button:hover {
   opacity: 0.9;
@@ -136,5 +160,8 @@ body {
 @media (max-width: 800px) {
   body {
     height: auto;
+  }
+  .data-container {
+    max-height: unset;
   }
 }

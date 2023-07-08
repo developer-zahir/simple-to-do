@@ -66,7 +66,7 @@ add_button.onclick = () => {
   if (submitted_data.length >= 5) {
     foods.push(submitted_data);
   } else {
-    error_message.innerHTML = `- You must add a minimum of 5 characters for the task...`;
+    error_message.innerHTML = `You must add a minimum of 5 characters for the task...`;
   }
   food_processing();
   saveDataToLocalStorage();
