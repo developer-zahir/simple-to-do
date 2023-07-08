@@ -170,7 +170,7 @@ body {
     height: auto;
   }
   .box {
-    width: auto;
+    width: 100%;
   }
   .data-container {
     max-height: unset;
