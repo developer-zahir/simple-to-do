@@ -16,7 +16,7 @@ const food_processing = () => {
     <li>
         <span class="sl_number">${index + 1 <= 9 ? `0${index + 1}` : index + 1}</span>
         <span class="food_name"> ${food}</span>
-        <span class="remove_data">X</span>
+        <span class="remove_data"><img class="delete_icon" src="./assets/img/delete_btn.svg"</span>
    </li>
     `;
   });
