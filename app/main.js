@@ -4,17 +4,16 @@ const data_container = document.querySelector(".data-inner");
 const clear_data_button = document.querySelector(".clear_add_data");
 
 // store data
-let foods = [];
+let foods = ["Prochur practice korte hobe ( Default value )"];
 
 // food processing from array
 const food_processing = () => {
   let single_food = "";
   foods.map((food, index) => {
     single_food += `
-    
     <li>
-        <span class="sl" data-index="${index}">0${index + 1}</span>
-        <span class="text-left"> ${food}</span>
+        <span class="sl_number">${index + 1 <= 9 ? `0${index + 1}` : index + 1}</span>
+        <span class="food_name"> ${food}</span>
         <span class="remove_data">X</span>
    </li>
     `;
@@ -69,3 +68,4 @@ add_button.onclick = () => {
 };
 
 loadDataFromLocalStorage();
+food_processing();
