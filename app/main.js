@@ -3,6 +3,7 @@ const input = document.querySelector(".box-body input");
 const data_container = document.querySelector(".data-inner");
 const clear_data_button = document.querySelector(".clear_add_data");
 const reload_button = document.querySelector(".reload");
+const error_message = document.querySelector(".error_message");
 
 // store data
 let foods = ["Prochur practice korte hobe ( Default value )"];
@@ -62,7 +63,11 @@ clear_data_button.addEventListener("click", clearData);
 // get user submitted data and store this data in the array
 add_button.onclick = () => {
   let submitted_data = input.value;
-  foods.push(submitted_data);
+  if (submitted_data.length >= 5) {
+    foods.push(submitted_data);
+  } else {
+    error_message.innerHTML = `- You must add a minimum of 5 characters for the task...`;
+  }
   food_processing();
   saveDataToLocalStorage();
   input.value = "";
