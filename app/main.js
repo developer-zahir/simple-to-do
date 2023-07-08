@@ -66,9 +66,11 @@ add_button.onclick = () => {
   if (submitted_data.length >= 5) {
     foods.push(submitted_data);
     error_message.style.color = "green";
+    error_message.style.visibility = "visible";
     error_message.innerHTML = `Task Added!`;
   } else {
     error_message.style.color = "red";
+    error_message.style.visibility = "visible";
     error_message.innerHTML = `You must add a minimum of 5 characters for the task...`;
   }
   food_processing();
