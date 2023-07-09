@@ -1,86 +1,50 @@
-const add_button = document.querySelector("button");
-const input = document.querySelector(".box-body input");
-const data_container = document.querySelector(".data-inner");
-const clear_data_button = document.querySelector(".clear_add_data");
-const reload_button = document.querySelector(".reload");
+const todo_submite_field = document.querySelector(".todo_submite_field");
+const todo_submite_button = document.querySelector(".todo_submite_button");
+const todo_data_list_container = document.querySelector(".todo_data_list_container");
 const error_message = document.querySelector(".error_message");
 
-// store data
-let foods = ["Regular class korte hobe. ", "Prochur practice korte hobe. ", " Protita class er note korete hobe", "Ekjon valo maner, developer hote hobe. ", "Ekjon valo mner manush hote hobe"];
+// get usr submite data start
+todo_submite_button.onclick = () => {
+  const user_submite_value = todo_submite_field.value;
+  // set validation for user submite value
+  if (user_submite_value) {
+    todos_data.push(user_submite_value);
+    todo_submite_field.value = "";
 
-// food processing from array
-const food_processing = () => {
-  let single_food = "";
-  foods.map((food, index) => {
-    single_food += `
+    // task add success message
+    error_message.innerHTML = `Task added!`;
+    error_message.style.visibility = "visible";
+    error_message.style.color = "green";
+  } else {
+    error_message.innerHTML = `Todo must not be empty`;
+    error_message.style.visibility = "visible";
+  }
+  todos_processing();
+};
+// get usr submite data end
+
+// todos processing start
+const todos_processing = () => {
+  let todo_data = "";
+  todos_data.forEach((item, index) => {
+    todo_data += `
     <li>
-        <span class="sl_number">${index + 1 <= 9 ? `0${index + 1}` : index + 1}</span>
-        <span class="food_name"> ${food}</span>
-        <span class="remove_data"><img class="delete_icon" src="./assets/img/delete_btn.svg"></span>
-   </li>
+      <span class="sl_number">${index + 1 <= 9 ? `0${index + 1}` : index + 1}</span>
+      <span class="food_name"> ${item}</span>
+      <span class="remove_data" onclick="delete_todo('${item}')"><img class="delete_icon" src="./assets/img/delete_btn.svg"></span>
+    </li>
     `;
   });
-  data_container.innerHTML = single_food;
-
-  // Add event listeners to remove data when "sl" button is clicked
-  const remove_data = document.querySelectorAll(".remove_data");
-  remove_data.forEach((button) => {
-    button.addEventListener("click", removeData);
-  });
+  todo_data_list_container.innerHTML = todo_data;
 };
+todos_processing();
+// todos processing start
 
-// save data on local storage
-const saveDataToLocalStorage = () => {
-  localStorage.setItem("foods", JSON.stringify(foods));
+// delete doto when click the delete button
+const delete_todo = (item) => {
+  let update_todos_data = todos_data.filter((data) => data != item);
+  todos_data = update_todos_data;
+  todos_processing();
+
+  console.log(todos_data);
 };
-
-// get data from local storage and show it to frontend
-const loadDataFromLocalStorage = () => {
-  const storedFoods = localStorage.getItem("foods");
-  if (storedFoods) {
-    foods = JSON.parse(storedFoods);
-    food_processing();
-  }
-};
-
-// Clear all stored data
-const clearData = () => {
-  localStorage.removeItem("foods");
-  foods.length = 0; // Clear the foods array
-  food_processing();
-};
-
-// remove data whec click the remove button
-const removeData = (event) => {
-  const index = event.target.dataset.index;
-  foods.splice(index, 1);
-  food_processing();
-  saveDataToLocalStorage();
-};
-
-clear_data_button.addEventListener("click", clearData);
-
-// get user submitted data and store this data in the array
-add_button.onclick = () => {
-  let submitted_data = input.value;
-  if (submitted_data.length >= 5) {
-    foods.push(submitted_data);
-    error_message.style.color = "green";
-    error_message.style.visibility = "visible";
-    error_message.innerHTML = `Task Added!`;
-  } else {
-    error_message.style.color = "red";
-    error_message.style.visibility = "visible";
-    error_message.innerHTML = `You must add a minimum of 5 characters for the task...`;
-  }
-  food_processing();
-  saveDataToLocalStorage();
-  input.value = "";
-};
-// when click the reload button then reload the browser
-reload_button.onclick = () => {
-  location.href = location.href;
-};
-
-loadDataFromLocalStorage();
-food_processing();
