@@ -48,7 +48,6 @@ const delete_todo = (item, index) => {
   todos_data = update_todos_data;
   todos_processing();
   console.log(todos_data);
-
 };
 // delete doto when click the delete button || end
 
