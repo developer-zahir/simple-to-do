@@ -33,7 +33,7 @@ const todos_processing = () => {
     <li>
       <span class="sl_number">${index + 1 <= 9 ? `0${index + 1}` : index + 1}</span>
       <span class="food_name"> ${item}</span>
-      <span class="remove_data" onclick="delete_todo('${item}', '${index}')"><img class="delete_icon" src="./assets/img/delete_btn.svg"></span>
+      <span class="remove_data" onclick="delete_todo('${index}')"><img class="delete_icon" src="./assets/img/delete_btn.svg"></span>
     </li>
     `;
   });
@@ -42,14 +42,15 @@ const todos_processing = () => {
 todos_processing();
 // todos processing start
 
-// delete doto when click the delete button || start
-const delete_todo = (item, index) => {
-  let update_todos_data = todos_data.filter((data) => data != item);
+// delete todo when click the delete button || start
+const delete_todo = (index) => {
+  let update_todos_data = todos_data.filter((item, idx) => idx != index);
   todos_data = update_todos_data;
   todos_processing();
   console.log(todos_data);
 };
-// delete doto when click the delete button || end
+
+// delete todo when click the delete button || end
 
 // clear all data when click the ( clear all data button ) || start
 clear_all_data.onclick = () => {
