@@ -5,61 +5,76 @@ const error_message = document.querySelector(".error_message");
 const clear_all_data = document.querySelector(".clear_all_data");
 const reload = document.querySelector(".reload");
 
-// get usr submite data start
+// get user submit data
 todo_submite_button.onclick = () => {
-  const user_submite_value = todo_submite_field.value;
-  // set validation for user submite value
-  if (user_submite_value) {
-    todos_data.push(user_submite_value);
+  const user_submit_value = todo_submite_field.value;
+
+  // check todos_data in local storage
+  if (localStorage.getItem("todos_data")) {
+    todos_data = JSON.parse(localStorage.getItem("todos_data"));
+  }
+
+  // set validation for user submit value
+  if (user_submit_value) {
+    todos_data.push(user_submit_value);
     todo_submite_field.value = "";
 
     // task add success message
-    error_message.innerHTML = `Task added!`;
+    error_message.innerHTML = "Task added!";
     error_message.style.visibility = "visible";
     error_message.style.color = "green";
   } else {
-    error_message.innerHTML = `Todo must not be empty`;
+    error_message.innerHTML = "Todo must not be empty";
     error_message.style.visibility = "visible";
+    error_message.style.color = "red";
   }
-  todos_processing();
-};
-// get usr submite data end
 
-// todos processing start
-const todos_processing = () => {
-  let todo_data = "";
+  // store data in local storage
+  localStorage.setItem("todos_data", JSON.stringify(todos_data));
+  show_todos();
+};
+
+// show todos from local storage
+const show_todos = () => {
+  if (localStorage.getItem("todos_data")) {
+    todos_data = JSON.parse(localStorage.getItem("todos_data"));
+  }
+  let content = "";
   todos_data.forEach((item, index) => {
-    todo_data += `
+    content += `
     <li>
       <span class="sl_number">${index + 1 <= 9 ? `0${index + 1}` : index + 1}</span>
-      <span class="food_name"> ${item}</span>
-      <span class="remove_data" onclick="delete_todo('${index}')"><img class="delete_icon" src="./assets/img/delete_btn.svg"></span>
+      <span class="food_name">${item}</span>
+      <span class="remove_data" onclick="delete_todo(${index})"><img class="delete_icon" src="./assets/img/delete_btn.svg"></span>
     </li>
     `;
   });
-  todo_data_list_container.innerHTML = todo_data;
+  todo_data_list_container.innerHTML = content;
 };
-todos_processing();
-// todos processing start
-
-// delete todo when click the delete button || start
+show_todos();
+// delete todo when click the delete button
 const delete_todo = (index) => {
-  let update_todos_data = todos_data.filter((item, idx) => idx != index);
-  todos_data = update_todos_data;
-  todos_processing();
-  console.log(todos_data);
+  if (localStorage.getItem("todos_data")) {
+    todos_data = JSON.parse(localStorage.getItem("todos_data"));
+  }
+
+  let update_todos_data = todos_data.filter((item, idx) => idx !== index);
+
+  localStorage.setItem("todos_data", JSON.stringify(update_todos_data));
+  show_todos();
 };
 
-// delete todo when click the delete button || end
-
-// clear all data when click the ( clear all data button ) || start
-clear_all_data.onclick = () => {
-  todos_data = [];
-  todos_processing();
-};
-// clear all data when click the ( clear all data button ) || end
-
-// reload when click the reload button
-reload.onclick = () => {
+// Reload button
+reload.addEventListener("click", () => {
   location.reload();
-};
+});
+
+// Clear all data button
+clear_all_data.addEventListener("click", () => {
+  localStorage.removeItem("todos_data");
+  todos_data = [];
+  error_message.innerHTML = "All data is cleared";
+  error_message.style.visibility = "visible";
+  error_message.style.color = "green";
+  show_todos();
+});
