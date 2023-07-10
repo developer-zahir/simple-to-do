@@ -2,6 +2,8 @@ const todo_submite_field = document.querySelector(".todo_submite_field");
 const todo_submite_button = document.querySelector(".todo_submite_button");
 const todo_data_list_container = document.querySelector(".todo_data_list_container");
 const error_message = document.querySelector(".error_message");
+const clear_all_data = document.querySelector(".clear_all_data");
+const reload = document.querySelector(".reload");
 
 // get usr submite data start
 todo_submite_button.onclick = () => {
@@ -31,7 +33,7 @@ const todos_processing = () => {
     <li>
       <span class="sl_number">${index + 1 <= 9 ? `0${index + 1}` : index + 1}</span>
       <span class="food_name"> ${item}</span>
-      <span class="remove_data" onclick="delete_todo('${item}')"><img class="delete_icon" src="./assets/img/delete_btn.svg"></span>
+      <span class="remove_data" onclick="delete_todo('${item}', '${index}')"><img class="delete_icon" src="./assets/img/delete_btn.svg"></span>
     </li>
     `;
   });
@@ -40,11 +42,24 @@ const todos_processing = () => {
 todos_processing();
 // todos processing start
 
-// delete doto when click the delete button
-const delete_todo = (item) => {
+// delete doto when click the delete button || start
+const delete_todo = (item, index) => {
   let update_todos_data = todos_data.filter((data) => data != item);
   todos_data = update_todos_data;
   todos_processing();
-
   console.log(todos_data);
+
+};
+// delete doto when click the delete button || end
+
+// clear all data when click the ( clear all data button ) || start
+clear_all_data.onclick = () => {
+  todos_data = [];
+  todos_processing();
+};
+// clear all data when click the ( clear all data button ) || end
+
+// reload when click the reload button
+reload.onclick = () => {
+  location.reload();
 };
